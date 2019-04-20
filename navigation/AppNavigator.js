@@ -2,11 +2,15 @@ import React from "react";
 import {
   createAppContainer,
   createBottomTabNavigator,
-  createSwitchNavigator
+  createSwitchNavigator,
+  createStackNavigator
 } from "react-navigation";
 import { Platform } from "expo-core";
 import DeckList from "../components/DeckList";
+import StartAQuiz from "../components/StartAQuiz";
 import AddDeck from "../components/AddDeck";
+import DeckDetailsView from "../components/DeckDetailsView";
+import AddCard from "../components/AddCard";
 import { purple, white } from "../utils/colors";
 import { FontAwesome } from "@expo/vector-icons";
 const MainTabNavigator = createBottomTabNavigator(
@@ -51,10 +55,39 @@ const MainTabNavigator = createBottomTabNavigator(
   }
 );
 
-const AppContainer = createAppContainer(
-  createSwitchNavigator({
-    Main: MainTabNavigator
-  })
-);
+const stackNavigation = createStackNavigator({
+  Home: {
+    screen: MainTabNavigator
+  },
+  AddCard: {
+    screen: AddCard,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple
+      }
+    }
+  },
+  DeckDetailsView: {
+    screen: DeckDetailsView,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple
+      }
+    }
+  },
+  StartAQuiz: {
+    screen: StartAQuiz,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple
+      }
+    }
+  }
+});
+
+const AppContainer = createAppContainer(stackNavigation);
 
 export default AppContainer;

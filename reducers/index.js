@@ -1,5 +1,4 @@
 import { ADD_CARD, ADD_DECK, UPDATE_DECK, RECEIVE_DECKS } from "../actions";
-
 const deepcopy = require("deepcopy");
 function decks(state = {}, action) {
   let decks;
@@ -8,14 +7,14 @@ function decks(state = {}, action) {
       let newDeck = {
         [action.title]: {
           title: action.title,
-          questions: []
+          questions: [],
+          answered: false
         }
       };
 
-      console.log(...state, newDeck);
       return {
         ...state,
-        newDeck
+        ...newDeck
       };
     case ADD_CARD:
       decks = deepcopy(state);

@@ -8,6 +8,7 @@ import {
 import { connect } from "react-redux";
 import { addDeck } from "../actions";
 import SubmitBtn from "./SubmitButton";
+import { saveDeckTitle } from "../utils/api";
 class AddDeck extends React.Component {
   constructor(props) {
     super(props);
@@ -27,7 +28,7 @@ class AddDeck extends React.Component {
         />
         <SubmitBtn
           onPress={this.submit}
-          disabled={this.state.title.length === 0}
+          disabled={this.state.title.length <= 0}
         />
       </KeyboardAvoidingView>
     );
@@ -38,10 +39,19 @@ class AddDeck extends React.Component {
   };
 
   submit = () => {
-    debugger;
-    this.props.dispatch(addDeck(this.state.title));
-    // Navigate to home
-    // Save to "DB"
+    const { title } = this.state;
+    this.props.dispatch(addDeck(title));
+    this.setState({ title: "" });
+    saveDeckTitle(title);
+    this.toDeckDetailsView(title);
+
+    //clear notification
+  };
+
+  toDeckDetailsView = title => {
+    this.props.navigation.navigate("DeckDetailsView", {
+      title
+    });
   };
 }
 function mapStateToProps(state) {

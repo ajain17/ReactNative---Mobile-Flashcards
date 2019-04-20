@@ -1,5 +1,4 @@
 import { AsyncStorage } from "react-native";
-import { DECKSTORAGEKEY } from "./api";
 export const DECKSTORAGEKEY = "FlashCards:decks";
 
 export function getDecks() {
