@@ -7,8 +7,7 @@ function decks(state = {}, action) {
       let newDeck = {
         [action.title]: {
           title: action.title,
-          questions: [],
-          answered: false
+          questions: []
         }
       };
 

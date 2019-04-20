@@ -49,7 +49,7 @@ class AddCard extends React.Component {
 
   submit = () => {
     const { question, answer, title } = this.state;
-    let card = { question, answer, answered: null };
+    let card = { question, answer };
     console.log(this.props.navigation.state.params);
     this.props.dispatch(addCard(title, card));
     this.setState({ question: "", answer: "" });

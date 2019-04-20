@@ -30,7 +30,7 @@ class DeckList extends React.Component {
                   }}
                 >
                   <Text
-                    styles={{
+                    style={{
                       color: "white",
                       fontSize: 25,
                       fontWeight: "bold"

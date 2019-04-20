@@ -9,6 +9,7 @@ import { Platform } from "expo-core";
 import DeckList from "../components/DeckList";
 import StartAQuiz from "../components/StartAQuiz";
 import AddDeck from "../components/AddDeck";
+import QuizResults from "../components/QuizResults";
 import DeckDetailsView from "../components/DeckDetailsView";
 import AddCard from "../components/AddCard";
 import { purple, white } from "../utils/colors";
@@ -79,6 +80,15 @@ const stackNavigation = createStackNavigator({
   },
   StartAQuiz: {
     screen: StartAQuiz,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple
+      }
+    }
+  },
+  QuizResults: {
+    screen: QuizResults,
     navigationOptions: {
       headerTintColor: white,
       headerStyle: {
