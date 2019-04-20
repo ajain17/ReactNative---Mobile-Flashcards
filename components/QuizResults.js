@@ -1,8 +1,7 @@
 import React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
+import { clearLocalNotification, setLocalNotification } from "../utils/helper";
 import TextButton from "./TextButton";
-import { connect } from "react-redux";
-
 class QuizResults extends React.Component {
   constructor(props) {
     super(props);
@@ -16,6 +15,8 @@ class QuizResults extends React.Component {
       title: this.props.navigation.state.params.title,
       totalScore: this.props.navigation.state.params.totalScore
     });
+
+    clearLocalNotification().then(setLocalNotification());
   }
 
   render() {

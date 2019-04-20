@@ -29,10 +29,11 @@ function decks(state = {}, action) {
         ...decks
       };
     case RECEIVE_DECKS:
-      return {
+      let newState = {
         ...state,
         ...action.decks
       };
+      return newState;
     default:
       return state;
   }

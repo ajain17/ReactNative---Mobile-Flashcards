@@ -9,11 +9,8 @@ import {
 import { connect } from "react-redux";
 import { getDecks } from "../utils/api";
 import { receiveDecks } from "../actions";
-class DeckList extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
+class DeckList extends React.Component {
   componentDidMount() {
     getDecks().then(
       decks => {
@@ -33,20 +30,13 @@ class DeckList extends React.Component {
               <View key={deck}>
                 <TouchableOpacity
                   style={styles.deck}
-                  key={deck}
                   onPress={() => {
                     this.props.navigation.navigate("DeckDetailsView", {
                       title: deck
                     });
                   }}
                 >
-                  <Text
-                    style={{
-                      color: "white",
-                      fontSize: 25,
-                      fontWeight: "bold"
-                    }}
-                  >
+                  <Text style={styles.text}>
                     Deck {deck} has {this.props.decks[deck].questions.length}{" "}
                     card(s)
                   </Text>
@@ -56,7 +46,7 @@ class DeckList extends React.Component {
           </View>
         ) : (
           <View>
-            <Text style={styles.title}>No decks</Text>
+            <Text style={styles.title}>No decks, please add a new one!</Text>
           </View>
         )}
       </ScrollView>
@@ -88,5 +78,10 @@ const styles = StyleSheet.create({
     backgroundColor: "mediumpurple",
     borderColor: "black",
     borderWidth: 2
+  },
+  text: {
+    color: "white",
+    fontSize: 25,
+    fontWeight: "bold"
   }
 });

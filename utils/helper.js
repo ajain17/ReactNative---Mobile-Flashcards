@@ -1,24 +1,58 @@
 import { AsyncStorage } from "react-native";
-export function getDecks() {
+import { Notifications, Permissions } from "expo";
+
+const NOTIFICATIONKEY = "FLASHCARDS:notification";
+
+export function clearLocalNotification() {
+  return AsyncStorage.removeItem(NOTIFICATIONKEY).then(
+    Notifications.cancelAllScheduledNotificationsAsync
+  );
+}
+
+function createNotification() {
   return {
-    today: "👋 Don't forget to log your data today!"
+    title: "Start a quiz now!",
+    body: "Don't forget to quiz yourself today!",
+    ios: {
+      sound: true
+    },
+    android: {
+      sound: true,
+      priority: "high",
+      sticky: false,
+      vibrate: true
+    }
   };
 }
 
-export function getDeck(id) {
-  return {
-    today: "👋 Don't forget to log your data today!"
-  };
-}
+export function setLocalNotification() {
+  AsyncStorage.getItem(NOTIFICATIONKEY)
+    .then(JSON.parse)
+    .then(data => {
+      if (data === null) {
+        Permissions.askAsync(Permissions.NOTIFICATIONS).then(({ status }) => {
+          Notifications.cancelAllScheduledNotificationsAsync();
+          let tomorrow = new Date();
+          // tomorrow.setDate(tomorrow.getDate() + 1);
+          // tomorrow.setHours(20);
+          // tomorrow.setMinutes(0);
 
-export function saveDeckTitle(title) {
-  return {
-    today: "👋 Don't forget to log your data today!"
-  };
-}
+          tomorrow.setDate(tomorrow.getDate());
+          tomorrow.setHours(11);
+          tomorrow.setMinutes(51);
 
-export function addCardToDeck(title, card) {
-  return {
-    today: "👋 Don't forget to log your data today!"
-  };
+          Notifications.scheduleLocalNotificationAsync(createNotification(), {
+            time: tomorrow,
+            repeat: "day"
+          });
+
+          AsyncStorage.setItem(NOTIFICATIONKEY, JSON.stringify(true));
+        });
+      }
+    })
+    .catch(function(error) {
+      console.log(
+        "There has been a problem with your operation: " + error.message
+      );
+    });
 }

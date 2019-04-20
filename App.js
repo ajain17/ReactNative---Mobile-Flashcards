@@ -7,6 +7,7 @@ import AppContainer from "./navigation/AppNavigator";
 import reducer from "./reducers";
 import { purple, white } from "./utils/colors";
 import middleware from "./middleware";
+import { setLocalNotification } from "./utils/helper";
 function UdaciStatusBar({ backgroundColor, color, ...props }) {
   return (
     <View style={{ backgroundColor, color, height: Constants.statusBarHeight }}>
@@ -25,7 +26,10 @@ const store = createStore(
 );
 
 export default class App extends React.Component {
-  componentDidMount() {}
+  componentDidMount() {
+    setLocalNotification();
+  }
+
   render() {
     return (
       <Provider store={store}>

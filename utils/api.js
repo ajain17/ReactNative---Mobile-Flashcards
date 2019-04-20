@@ -46,12 +46,6 @@ export function saveDeckTitle(title) {
 
 export function addCardToDeck(title, card) {
   return AsyncStorage.getItem(DECKSTORAGEKEY).then(data => {
-    // let decks = JSON.parse(data);
-    // let deck = decks[title];
-    // if (deck) {
-    //   deck.questions.push(card);
-    //   AsyncStorage.setItem(DECKSTORAGEKEY, JSON.stringify(decks));
-    // }
     let deck = JSON.parse(data)[title];
     deck.questions.push(card);
     AsyncStorage.mergeItem(DECKSTORAGEKEY, JSON.stringify({ [title]: deck }));
@@ -59,7 +53,6 @@ export function addCardToDeck(title, card) {
 }
 
 export function setDummyData() {
-  debugger;
   AsyncStorage.setItem(DECKSTORAGEKEY, JSON.stringify(dummyData));
 }
 
