@@ -18,7 +18,6 @@ function UdaciStatusBar({ backgroundColor, color, ...props }) {
 
 const store = createStore(
   reducer,
-
   compose(
     middleware,
     window.devToolsExtension ? window.devToolsExtension() : f => f
