@@ -15,9 +15,12 @@ class DeckList extends React.Component {
   }
 
   componentDidMount() {
-    getDecks().then(decks => {
-      this.props.dispatch(receiveDecks(decks));
-    });
+    getDecks().then(
+      decks => {
+        if (decks) this.props.dispatch(receiveDecks(decks));
+      },
+      error => console.log(error)
+    );
   }
 
   render() {
@@ -27,7 +30,7 @@ class DeckList extends React.Component {
         {this.props.decks && Object.keys(this.props.decks).length > 0 ? (
           <View>
             {Object.keys(this.props.decks).map(deck => (
-              <View>
+              <View key={deck}>
                 <TouchableOpacity
                   style={styles.deck}
                   key={deck}
