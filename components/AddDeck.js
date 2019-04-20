@@ -54,13 +54,8 @@ class AddDeck extends React.Component {
     });
   };
 }
-function mapStateToProps(state) {
-  return {
-    decks: state.decks
-  };
-}
 
-export default connect(mapStateToProps)(AddDeck);
+export default connect()(AddDeck);
 
 const styles = StyleSheet.create({
   container: {

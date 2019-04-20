@@ -3,6 +3,8 @@ import { Text, View, StyleSheet } from "react-native";
 import TextButton from "./TextButton";
 import { connect } from "react-redux";
 import { QuestionView, AnswerView, EmptyQuizView } from "./QuizViews";
+import { updateDeck } from "../actions";
+const deepcopy = require("deepcopy");
 class StartAQuiz extends React.Component {
   constructor(props) {
     super(props);
@@ -19,7 +21,7 @@ class StartAQuiz extends React.Component {
 
   render() {
     if (this.props.deck.questions.length === 0) {
-      <EmptyQuizView />;
+      return <EmptyQuizView />;
     } else {
       let question = this.props.deck.questions[this.state.index];
       if (question) {
@@ -53,7 +55,8 @@ class StartAQuiz extends React.Component {
               </TextButton>
 
               <Text>
-                Question: {this.state.index + 1}/
+                Remaining Questions:
+                {this.props.deck.questions.length - this.state.index - 1}/
                 {this.props.deck.questions.length}
               </Text>
             </View>
@@ -64,15 +67,8 @@ class StartAQuiz extends React.Component {
   }
 
   incrementScore = value => {
-    this.setState(state => {
-      let newScore = state.score + value;
-      return {
-        ...state,
-        score: newScore
-      };
-    });
-
-    this.incrementIndex();
+    let newScore = this.state.totalScore + value;
+    this.setState({ totalScore: newScore }, () => this.incrementIndex());
   };
 
   showAnswer = () => {
@@ -85,11 +81,12 @@ class StartAQuiz extends React.Component {
 
   incrementIndex = () => {
     if (this.state.index + 1 === this.props.deck.questions.length) {
-      //debugger;
-      // go to results view
-      let { title } = this.state;
-      this.props.navigation.navigate("DeckDetailsView", {
-        title
+      let { title, totalScore } = this.state;
+      //reset score and index
+      this.setState({ totalScore: 0, index: 0 });
+      this.props.navigation.navigate("QuizResults", {
+        title,
+        totalScore
       });
     } else {
       this.setState(state => {
