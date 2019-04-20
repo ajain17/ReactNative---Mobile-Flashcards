@@ -1,6 +1,5 @@
 import { AsyncStorage } from "react-native";
-import setDummyData from "./_data";
-
+import { DECKSTORAGEKEY } from "./api";
 export const DECKSTORAGEKEY = "FlashCards:decks";
 
 export function getDecks() {
@@ -59,3 +58,34 @@ export function addCardToDeck(title, card) {
     AsyncStorage.mergeItem(DECKSTORAGEKEY, JSON.stringify({ [title]: deck }));
   });
 }
+
+export function setDummyData() {
+  debugger;
+  AsyncStorage.setItem(DECKSTORAGEKEY, JSON.stringify(dummyData));
+}
+
+const dummyData = {
+  React: {
+    title: "React",
+    questions: [
+      {
+        question: "What is React?",
+        answer: "A library for managing user interfaces"
+      },
+      {
+        question: "Where do you make Ajax requests in React?",
+        answer: "The componentDidMount lifecycle event"
+      }
+    ]
+  },
+  JavaScript: {
+    title: "JavaScript",
+    questions: [
+      {
+        question: "What is a closure?",
+        answer:
+          "The combination of a function and the lexical environment within which that function was declared."
+      }
+    ]
+  }
+};

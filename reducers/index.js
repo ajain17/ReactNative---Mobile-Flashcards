@@ -1,4 +1,5 @@
-import { ADD_CARD, ADD_DECK, UPDATE_DECK } from "../actions";
+import { ADD_CARD, ADD_DECK, UPDATE_DECK, RECEIVE_DECKS } from "../actions";
+
 const deepcopy = require("deepcopy");
 function decks(state = {}, action) {
   let decks;
@@ -11,6 +12,7 @@ function decks(state = {}, action) {
         }
       };
 
+      console.log(...state, newDeck);
       return {
         ...state,
         newDeck
@@ -28,7 +30,11 @@ function decks(state = {}, action) {
       return {
         ...decks
       };
-
+    case RECEIVE_DECKS:
+      return {
+        ...state,
+        ...action.decks
+      };
     default:
       return state;
   }

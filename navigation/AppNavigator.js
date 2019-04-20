@@ -8,7 +8,7 @@ import { Platform } from "expo-core";
 import DeckList from "../components/DeckList";
 import AddDeck from "../components/AddDeck";
 import { purple, white } from "../utils/colors";
-import { FontAwesome, Ionicons } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 const MainTabNavigator = createBottomTabNavigator(
   {
     DeckList: {
