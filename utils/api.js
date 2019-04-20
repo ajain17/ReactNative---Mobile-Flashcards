@@ -1,9 +1,16 @@
 import { AsyncStorage } from "react-native";
+import setDummyData from "./_data";
 
 export const DECKSTORAGEKEY = "FlashCards:decks";
 
 export function getDecks() {
-  return AsyncStorage.getItem(DECKSTORAGEKEY).then(data => JSON.parse(data));
+  return AsyncStorage.getItem(DECKSTORAGEKEY).then(data => {
+    if (data) {
+      return JSON.parse(data);
+    } else {
+      return JSON.parse(setDummyData());
+    }
+  });
 }
 
 export function deleteAllDecks() {
@@ -13,8 +20,8 @@ export function deleteAllDecks() {
 export function deleteDeck(title) {
   return AsyncStorage.getItem(DECKSTORAGEKEY).then(results => {
     const data = JSON.parse(results);
-    data[key] = undefined;
-    delete data[key];
+    data[title] = undefined;
+    delete data[title];
     AsyncStorage.setItem(DECKSTORAGEKEY, JSON.stringify(data));
   });
 }
